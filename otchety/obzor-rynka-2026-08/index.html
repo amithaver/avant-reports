@@ -3,36 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#1f3a5f" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f1522" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0b405c" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1b26" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Обзор рынка морской подготовки за август 2026: спрос, цены, вакансии, ответы ИИ, параллельные контуры оформления документов.">
 <title>Украинские моряки пошли сверять свои сертификаты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
 <style>
-/* Палитра и типографика — из недельного разбора рекламы AVANT */
+/* Фирменные цвета AVANT: сняты с логотипа и с tcsavant.com.
+   Тёмно-синий #0B405C, золотой #F1BD54. Шрифты сайта — Onest и Inter. */
 :root{
-  --ink:#16202e; --muted:#6b7789; --line:#e3e8ef; --bg:#ffffff; --panel:#f7f9fc;
-  --acc:#1f3a5f; --meta:#3d6fd1; --goog:#e08a1e; --bad:#c0392b; --good:#1f8a5f;
-  --panel-2:#eef2f8; --acc-soft:#e8eef6; --plate:#ffffff;
+  --navy:#0b405c; --gold:#f1bd54; --navy-2:#285c80;
+  --ink:#12222e; --muted:#5d7183; --line:#dde5ea; --bg:#ffffff;
+  --panel:#f6f8fa; --panel-2:#eaf0f4; --plate:#ffffff;
+  --acc:#0b405c; --s1:#1c6ea4; --s2:#b8860b; --good:#1f8a5f; --bad:#c0392b;
+  --sh:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --tx:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ink:#e6ecf5; --muted:#9aa7b8; --line:#2a3446; --bg:#0f1522; --panel:#161e2c;
-    --acc:#8fb3e8; --meta:#7ba3e8; --goog:#f0ad4e; --bad:#ef6f61; --good:#5fc79a;
-    --panel-2:#1b2536; --acc-soft:#1a2740; --plate:#f2f5f9;
+    --navy:#7fb6d8; --gold:#f1bd54; --navy-2:#4d87ad;
+    --ink:#e4edf3; --muted:#93a8b8; --line:#22323f; --bg:#0d1b26;
+    --panel:#132836; --panel-2:#1a3242; --plate:#eef3f7;
+    --acc:#7fb6d8; --s1:#3a88bd; --s2:#bd8a2a; --good:#4fb389; --bad:#dd7362;
   }
 }
 :root[data-theme="dark"]{
-  --ink:#e6ecf5; --muted:#9aa7b8; --line:#2a3446; --bg:#0f1522; --panel:#161e2c;
-  --acc:#8fb3e8; --meta:#7ba3e8; --goog:#f0ad4e; --bad:#ef6f61; --good:#5fc79a;
-  --panel-2:#1b2536; --acc-soft:#1a2740; --plate:#f2f5f9;
+  --navy:#7fb6d8; --gold:#f1bd54; --navy-2:#4d87ad;
+  --ink:#e4edf3; --muted:#93a8b8; --line:#22323f; --bg:#0d1b26;
+  --panel:#132836; --panel-2:#1a3242; --plate:#eef3f7;
+  --acc:#7fb6d8; --s1:#3a88bd; --s2:#bd8a2a; --good:#4fb389; --bad:#dd7362;
 }
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--bg); color:var(--ink);
-  font:17px/1.68 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font:400 17px/1.68 var(--tx);
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
 :focus-visible{outline:2px solid var(--meta); outline-offset:2px; border-radius:3px}
@@ -48,7 +57,8 @@ main{min-width:0; grid-column:2}
   grid-column:1; position:sticky; top:26px; align-self:start;
   padding-top:52px; max-height:calc(100vh - 52px); overflow-y:auto;
 }
-.toc h4{
+.toc h4{font-family:var(--sh);
+  
   font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted);
   font-weight:700; margin:0 0 12px;
 }
@@ -65,37 +75,33 @@ main{min-width:0; grid-column:2}
   font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
   font-weight:700; margin:0;
 }
-h1{
-  font-size:clamp(28px,4.2vw,44px); line-height:1.12; margin:14px 0 12px;
-  letter-spacing:-.022em; text-wrap:balance; max-width:20ch;
+h1{font-family:var(--sh); font-weight:700;
+  
+  font-size:clamp(28px,5vw,52px); line-height:1.08; margin:14px 0 14px;
+  letter-spacing:-.025em; text-wrap:balance; max-width:none;
 }
 .kicker{color:var(--muted); font-size:16px; margin:0 0 26px}
 main > .eyebrow:first-child{padding-top:52px}
 .meta{
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:0;
-  background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--acc);
-  border-radius:8px; overflow:hidden; margin:0 0 40px;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 26px;
+  border-top:2px solid var(--gold); padding:14px 0 0; margin:0 0 42px;
 }
-.meta div{padding:13px 17px; border-right:1px solid var(--line)}
-.meta div:last-child{border-right:0}
-.meta span{
-  display:block; font-size:11.5px; text-transform:uppercase; letter-spacing:.07em;
-  color:var(--muted); font-weight:700; margin-bottom:4px;
-}
-.meta b{font-size:17px; font-weight:700; font-variant-numeric:tabular-nums}
+.meta div{display:flex; align-items:baseline; gap:8px}
+.meta span{font-size:13.5px; color:var(--muted)}
+.meta b{font-family:var(--sh); font-size:15.5px; font-weight:600; font-variant-numeric:tabular-nums}
 
 /* --- разделы --- */
-h2{
+h2{font-family:var(--sh); font-weight:700;
   font-size:clamp(22px,3vw,30px); line-height:1.2; margin:64px 0 8px; letter-spacing:-.015em;
-  padding-top:20px; border-top:2px solid var(--acc); text-wrap:balance;
+  padding-top:20px; border-top:2px solid var(--gold); text-wrap:balance;
 }
 h2 .secno{
   display:block; font-size:12px; letter-spacing:.14em; color:var(--acc);
   font-variant-numeric:tabular-nums; margin-bottom:8px; opacity:.75; font-weight:700; text-transform:uppercase;
 }
-h3{
+h3{font-family:var(--sh); font-weight:600;
   font-size:19px; margin:38px 0 8px; letter-spacing:-.01em; color:var(--ink);
-  border-left:3px solid var(--acc); padding-left:12px;
+  border-left:3px solid var(--gold); padding-left:12px;
 }
 p{margin:15px 0; max-width:74ch}
 strong{font-weight:700}
@@ -118,7 +124,7 @@ hr{border:0; border-top:1px solid var(--line); margin:44px 0}
   background-attachment: local, local, scroll, scroll;
 }
 table{border-collapse:collapse; width:100%; font-size:14.5px; background:var(--bg)}
-thead th{
+thead th{font-family:var(--sh);
   background:var(--acc); color:#ffffff; text-align:left; padding:10px 14px;
   font-size:12px; letter-spacing:.06em; text-transform:uppercase; font-weight:700;
   white-space:nowrap; vertical-align:bottom;
@@ -163,9 +169,7 @@ footer{
   h1{max-width:none}
   p{max-width:none}
   h2{margin-top:48px}
-  .meta{grid-template-columns:1fr 1fr}
-  .meta div{border-right:1px solid var(--line); border-bottom:1px solid var(--line)}
-  .meta div:nth-child(2n){border-right:0}
+  .meta{gap:4px 18px}
   table{font-size:13.5px}
   thead th,tbody td{padding:8px 11px}
   figure{padding:10px}
