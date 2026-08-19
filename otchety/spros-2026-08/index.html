@@ -3,274 +3,257 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1f3a5f" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1522" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Приложение к обзору рынка морской подготовки: 8 113 поисковых фраз, помесячная динамика, десять стран, тренды за пять лет.">
 <title>Разведка спроса моряков</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
-
 <style>
+/* Палитра и типографика — из недельного отчёта AVANT, чтобы приложение читалось как его продолжение */
 :root{
-  --paper:#f3f5f6; --card:#ffffff; --ink:#111a1f; --ink-2:#3c4a52; --muted:#6d7a83;
-  --line:#dde3e7; --line-2:#eef1f3; --deep:#1f4e79; --deep-soft:#e7eef5;
-  --s1:#1c62b0; --s2:#0d8f6e; --s3:#c53d2e;
-  --grid:#e6eaed; --plate:#ffffff; --shadow:0 1px 2px rgba(17,26,31,.06),0 8px 24px rgba(17,26,31,.05);
-  --focus:#1c62b0;
+  --ink:#16202e; --muted:#6b7789; --line:#e3e8ef; --bg:#ffffff; --panel:#f7f9fc;
+  --acc:#1f3a5f; --meta:#3d6fd1; --goog:#e08a1e; --bad:#c0392b; --good:#1f8a5f;
+  --panel-2:#eef2f8; --acc-soft:#e8eef6; --plate:#ffffff; --grid:#e3e8ef;
+  --s1:#3d6fd1; --s2:#e08a1e;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --paper:#0e1418; --card:#151d23; --ink:#e7edf1; --ink-2:#bcc8d0; --muted:#8b9aa4;
-    --line:#26323a; --line-2:#1d262d; --deep:#7fb3e0; --deep-soft:#16242f;
-    --s1:#3d86d0; --s2:#1f9e79; --s3:#d4553f;
-    --grid:#222e36; --plate:#151d23; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
-    --focus:#7fb3e0;
+    --ink:#e6ecf5; --muted:#9aa7b8; --line:#2a3446; --bg:#0f1522; --panel:#161e2c;
+    --acc:#8fb3e8; --meta:#7ba3e8; --goog:#f0ad4e; --bad:#ef6f61; --good:#5fc79a;
+    --panel-2:#1b2536; --acc-soft:#1a2740; --plate:#161e2c; --grid:#28324a;
+    --s1:#5f90d8; --s2:#bc8026;
   }
 }
 :root[data-theme="dark"]{
-  --paper:#0e1418; --card:#151d23; --ink:#e7edf1; --ink-2:#bcc8d0; --muted:#8b9aa4;
-  --line:#26323a; --line-2:#1d262d; --deep:#7fb3e0; --deep-soft:#16242f;
-  --s1:#3d86d0; --s2:#1f9e79; --s3:#d4553f;
-  --grid:#222e36; --plate:#151d23; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
-  --focus:#7fb3e0;
+  --ink:#e6ecf5; --muted:#9aa7b8; --line:#2a3446; --bg:#0f1522; --panel:#161e2c;
+  --acc:#8fb3e8; --meta:#7ba3e8; --goog:#f0ad4e; --bad:#ef6f61; --good:#5fc79a;
+  --panel-2:#1b2536; --acc-soft:#1a2740; --plate:#161e2c; --grid:#28324a;
+  --s1:#5f90d8; --s2:#bc8026;
 }
 
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
 body{
-  margin:0; background:var(--paper); color:var(--ink);
-  font-family:"Golos Text",system-ui,-apple-system,Segoe UI,sans-serif;
-  font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  margin:0; background:var(--bg); color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
-.wrap{max-width:1240px; margin:0 auto; padding:34px 22px 80px}
-:focus-visible{outline:2px solid var(--focus); outline-offset:2px; border-radius:3px}
+.wrap{max-width:1080px; margin:0 auto; padding:0 22px 80px}
+:focus-visible{outline:2px solid var(--meta); outline-offset:2px; border-radius:3px}
+.num-f{font-variant-numeric:tabular-nums}
 
-/* --- шапка --- */
-header{border-bottom:1px solid var(--line); padding-bottom:22px; margin-bottom:24px}
-.eyebrow{
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--muted); margin:0 0 10px
+/* --- шапка: две колонки, чтобы ширина работала, а не пустовала справа --- */
+header.hero{
+  padding:46px 0 26px; border-bottom:3px solid var(--acc); margin-bottom:30px;
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,340px); gap:34px; align-items:end;
 }
-h1{
-  font-size:clamp(26px,3.4vw,38px); line-height:1.12; margin:0 0 10px; font-weight:600;
-  letter-spacing:-.02em; text-wrap:balance;
-}
-.lede{font-family:Literata,Georgia,serif; font-size:16px; color:var(--ink-2); margin:0; max-width:62ch}
+.eyebrow{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:600; margin:0}
+h1{font-size:clamp(26px,4.2vw,42px); line-height:1.14; margin:12px 0 10px; letter-spacing:-.02em; text-wrap:balance}
+.lede{color:var(--muted); font-size:16px; margin:0; max-width:52ch}
 .passport{
-  display:flex; flex-wrap:wrap; gap:0 30px; margin-top:18px;
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11.5px;
+  background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--acc);
+  border-radius:8px; padding:14px 16px; display:grid; grid-template-columns:1fr auto; gap:7px 16px;
 }
-.passport div{display:flex; flex-direction:column; gap:2px}
-.passport span{color:var(--muted); letter-spacing:.07em; text-transform:uppercase; font-size:10px}
-.passport b{font-weight:600; font-size:14px; font-variant-numeric:tabular-nums}
+.passport dt{font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:600; margin:0}
+.passport dd{margin:0; font-weight:700; font-variant-numeric:tabular-nums; text-align:right; font-size:15px}
 
 /* --- вкладки --- */
-.tabs{display:flex; gap:2px; margin-bottom:22px; border-bottom:1px solid var(--line)}
+.tabs{display:flex; gap:4px; margin-bottom:24px; border-bottom:1px solid var(--line); flex-wrap:wrap}
 .tab{
-  appearance:none; background:none; border:0; border-bottom:2px solid transparent;
-  padding:9px 15px; font:inherit; font-weight:500; color:var(--muted); cursor:pointer;
+  appearance:none; background:none; border:0; border-bottom:3px solid transparent;
+  padding:10px 16px; font:inherit; font-weight:600; color:var(--muted); cursor:pointer;
 }
 .tab:hover{color:var(--ink)}
-.tab[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--deep)}
+.tab[aria-selected="true"]{color:var(--acc); border-bottom-color:var(--acc)}
 .panel[hidden]{display:none}
 
 /* --- фильтры --- */
 .filters{
-  display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;
-  padding:14px; background:var(--card); border:1px solid var(--line);
-  border-radius:6px; margin-bottom:16px;
+  display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end;
+  background:var(--panel); border:1px solid var(--line); border-radius:10px;
+  padding:16px 18px; margin-bottom:18px;
 }
 .field{display:flex; flex-direction:column; gap:5px}
-.field label{
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px;
-  letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
-}
+.field label{font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:600}
 input[type=search],select{
-  font:inherit; font-size:14px; color:var(--ink); background:var(--paper);
-  border:1px solid var(--line); border-radius:4px; padding:7px 9px; min-width:150px;
+  font:inherit; font-size:15px; color:var(--ink); background:var(--bg);
+  border:1px solid var(--line); border-radius:7px; padding:9px 11px; min-width:158px;
 }
-input[type=search]{min-width:230px}
-.check{display:flex; align-items:center; gap:7px; font-size:14px; padding-bottom:7px; cursor:pointer}
-.check input{width:15px; height:15px; accent-color:var(--deep)}
+input[type=search]{min-width:236px}
+.check{display:flex; align-items:center; gap:8px; font-size:15px; padding-bottom:9px; cursor:pointer}
+.check input{width:16px; height:16px; accent-color:var(--acc)}
 .reset{
-  margin-left:auto; appearance:none; background:none; border:1px solid var(--line);
-  border-radius:4px; padding:7px 12px; font:inherit; font-size:13px; color:var(--ink-2); cursor:pointer;
+  margin-left:auto; appearance:none; background:var(--bg); border:1px solid var(--line);
+  border-radius:7px; padding:9px 15px; font:inherit; font-size:14px; font-weight:600;
+  color:var(--muted); cursor:pointer;
 }
-.reset:hover{border-color:var(--deep); color:var(--deep)}
+.reset:hover{border-color:var(--acc); color:var(--acc)}
 
-/* --- плитки --- */
-.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:10px; margin-bottom:18px}
-.tile{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:13px 15px}
-.tile span{
-  display:block; font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px;
-  letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:5px;
+/* --- показатели --- */
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(198px,1fr)); gap:14px; margin-bottom:20px}
+.kpi{
+  background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--acc);
+  border-radius:8px; padding:14px 16px;
 }
-.tile b{font-size:23px; font-weight:600; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
-.tile b .delta{font-size:23px; font-weight:600}
-.tile em{font-style:normal; font-size:12.5px; color:var(--muted); display:block; margin-top:3px}
+.kpi.meta{border-left-color:var(--meta)}
+.kpi.good{border-left-color:var(--good)}
+.kpi.goog{border-left-color:var(--goog)}
+.kpi-l{font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:600}
+.kpi-v{font-size:27px; font-weight:700; line-height:1.2; margin:5px 0 2px; font-variant-numeric:tabular-nums}
+.kpi-v .delta{font-size:27px; font-weight:700}
+.kpi-s{font-size:13px; color:var(--muted)}
+
+/* --- карточки и заголовки блоков --- */
+.card{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin-bottom:20px}
+.card.note{border-left:4px solid var(--acc)}
+.card h2{font-size:18px; margin:0 0 4px; letter-spacing:-.01em}
+.card p.note{font-size:14px; color:var(--muted); margin:0 0 14px}
 
 /* --- рейка кластеров --- */
-.rail{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:15px; margin-bottom:18px}
-.rail h2,.chart-box h2{
-  font-size:13px; margin:0 0 3px; font-weight:600; letter-spacing:.01em;
-}
-.rail p,.chart-box p.note{font-size:12.5px; color:var(--muted); margin:0 0 12px}
-.bars{display:flex; flex-direction:column; gap:3px}
+.bars{display:flex; flex-direction:column; gap:4px}
 .bar{
-  display:grid; grid-template-columns:210px 1fr 84px; gap:10px; align-items:center;
-  border:0; background:none; padding:3px 4px; font:inherit; text-align:left; cursor:pointer;
-  border-radius:4px; color:var(--ink);
+  display:grid; grid-template-columns:232px 1fr 92px; gap:12px; align-items:center;
+  border:0; background:none; padding:4px 6px; font:inherit; text-align:left; cursor:pointer;
+  border-radius:6px; color:var(--ink);
 }
-.bar:hover{background:var(--line-2)}
-.bar[aria-pressed="true"]{background:var(--deep-soft)}
-.bar .nm{font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
-.bar .tr{display:block; height:15px; background:var(--line-2); border-radius:3px; overflow:hidden}
-.bar .fl{display:block; height:100%; min-width:2px; background:var(--s1); border-radius:0 3px 3px 0}
-.bar[aria-pressed="true"] .fl{background:var(--deep)}
-.bar .vl{
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:12px;
-  font-variant-numeric:tabular-nums; text-align:right; color:var(--ink-2);
-}
+.bar:hover{background:var(--panel-2)}
+.bar[aria-pressed="true"]{background:var(--acc-soft)}
+.bar .nm{font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.bar .tr{display:block; height:16px; background:var(--panel-2); border-radius:4px; overflow:hidden}
+.bar .fl{display:block; height:100%; min-width:3px; background:var(--meta); border-radius:0 4px 4px 0}
+.bar[aria-pressed="true"] .fl{background:var(--acc)}
+.bar .vl{font-size:13px; font-variant-numeric:tabular-nums; text-align:right; color:var(--muted); font-weight:600}
 
 /* --- таблица --- */
-.tablewrap{overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:6px}
-table{border-collapse:collapse; width:100%; min-width:820px}
-th,td{padding:8px 12px; text-align:left; border-bottom:1px solid var(--line-2); font-size:13.5px}
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--bg); margin-bottom:20px}
+table{border-collapse:collapse; width:100%; min-width:840px}
+th,td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:14.5px}
 thead th{
-  position:sticky; top:0; background:var(--card); z-index:2;
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.08em;
-  text-transform:uppercase; color:var(--muted); font-weight:500; border-bottom:1px solid var(--line);
-  cursor:pointer; user-select:none; white-space:nowrap;
+  position:sticky; top:0; z-index:2; background:var(--acc); color:#ffffff;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; font-weight:600;
+  cursor:pointer; user-select:none; white-space:nowrap; border-bottom:0;
 }
-thead th:hover{color:var(--ink)}
-thead th .ar{opacity:.45; font-size:9px}
-td.num,th.num{text-align:right; font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+thead th:first-child{border-top-left-radius:9px}
+thead th:last-child{border-top-right-radius:9px}
+thead th:hover{background:var(--meta)}
+thead th .ar{opacity:.7; font-size:10px}
+td.num,th.num{text-align:right; font-variant-numeric:tabular-nums}
 tbody tr.row{cursor:pointer}
-tbody tr.row:hover{background:var(--line-2)}
-tbody tr.row.open{background:var(--deep-soft)}
-.frz{font-weight:500}
+tbody tr.row:hover{background:var(--panel)}
+tbody tr.row.open{background:var(--acc-soft)}
+.frz{font-weight:600}
 .chip{
-  display:inline-block; font-size:11px; padding:1.5px 7px; border-radius:20px;
-  background:var(--line-2); color:var(--ink-2); white-space:nowrap;
+  display:inline-block; font-size:12px; padding:2px 9px; border-radius:20px;
+  background:var(--panel-2); color:var(--muted); white-space:nowrap; font-weight:600;
 }
-.lang{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11px; color:var(--muted)}
-.delta{font-family:"JetBrains Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
-.up{color:var(--s2)} .dn{color:var(--s3)} .fl0{color:var(--muted)}
-.detail td{background:var(--paper); padding:14px 16px}
-.detail .cols{display:flex; flex-wrap:wrap; gap:26px; align-items:flex-start}
-.detail h3{
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.09em;
-  text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 8px;
-}
-.ctry{display:grid; grid-template-columns:auto 1fr auto; gap:4px 9px; align-items:center; min-width:270px}
-.ctry .cn{font-size:12.5px}
-.ctry .cb{display:block; height:9px; background:var(--line-2); border-radius:2px; min-width:70px; overflow:hidden}
-.ctry .cb i{display:block; height:100%; min-width:2px; background:var(--s1); border-radius:0 2px 2px 0}
-.ctry .cv{font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11.5px; font-variant-numeric:tabular-nums; color:var(--ink-2)}
+.lang{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em}
+.delta{font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:600}
+.up{color:var(--good)} .dn{color:var(--bad)} .fl0{color:var(--muted)}
+.detail td{background:var(--panel); padding:16px 18px}
+.detail .cols{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:28px; align-items:start}
+.detail h3{font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:600; margin:0 0 9px}
+.ctry{display:grid; grid-template-columns:auto 1fr auto; gap:5px 10px; align-items:center}
+.ctry .cn{font-size:13.5px}
+.ctry .cb{display:block; height:10px; background:var(--panel-2); border-radius:3px; min-width:60px; overflow:hidden}
+.ctry .cb i{display:block; height:100%; min-width:3px; background:var(--meta); border-radius:0 3px 3px 0}
+.ctry .cv{font-size:12.5px; font-variant-numeric:tabular-nums; color:var(--muted); font-weight:600}
 .more{
-  display:block; width:100%; padding:11px; border:0; border-top:1px solid var(--line);
-  background:var(--card); font:inherit; font-size:13px; color:var(--deep); cursor:pointer; font-weight:500;
+  display:block; width:100%; padding:13px; border:0; border-top:1px solid var(--line);
+  background:var(--panel); font:inherit; font-size:14px; color:var(--acc); cursor:pointer; font-weight:600;
 }
-.more:hover{background:var(--line-2)}
-.empty{padding:40px 20px; text-align:center; color:var(--muted); font-size:14px}
+.more:hover{background:var(--panel-2)}
+.empty{padding:44px 20px; text-align:center; color:var(--muted); font-size:15px}
 
 /* --- графики --- */
-.chart-box{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:16px; margin-bottom:16px}
-.plate{background:var(--plate); border-radius:4px}
+.plate{background:var(--plate); border-radius:8px}
+.scroll-x{overflow-x:auto}
+.scroll-x svg{min-width:660px}
 svg{display:block; max-width:100%}
-.legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:12.5px}
-.legend i{width:11px; height:11px; border-radius:2px; display:inline-block; margin-right:6px; vertical-align:-1px}
-.small-mult{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px}
-.sm{border:1px solid var(--line); border-radius:5px; padding:12px}
-.sm h4{margin:0 0 2px; font-size:13.5px; font-weight:600}
-.sm .sub{
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:11px;
-  color:var(--muted); margin:0 0 9px; font-variant-numeric:tabular-nums;
-  min-height:2.6em;
-}
+.legend{display:flex; flex-wrap:wrap; gap:16px; margin-top:12px; font-size:13.5px}
+.legend i{width:12px; height:12px; border-radius:3px; display:inline-block; margin-right:7px; vertical-align:-1px}
+.small-mult{display:grid; grid-template-columns:repeat(auto-fit,minmax(316px,1fr)); gap:14px}
+.sm{border:1px solid var(--line); border-radius:8px; padding:13px 15px; background:var(--bg)}
+.sm h4{margin:0 0 3px; font-size:14.5px; font-weight:700}
+.sm .sub{font-size:12.5px; color:var(--muted); margin:0 0 10px; font-variant-numeric:tabular-nums; min-height:2.6em}
 .tt{
-  position:fixed; pointer-events:none; z-index:50; background:var(--ink); color:var(--paper);
-  border-radius:4px; padding:6px 9px; font-size:12px; font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-variant-numeric:tabular-nums; opacity:0; transition:opacity .1s; white-space:nowrap;
+  position:fixed; pointer-events:none; z-index:50; background:var(--ink); color:var(--bg);
+  border-radius:6px; padding:7px 10px; font-size:13px; font-variant-numeric:tabular-nums;
+  opacity:0; transition:opacity .1s; white-space:nowrap; font-weight:600;
 }
 .tt.on{opacity:1}
 
-/* --- оговорки --- */
-.caveat{
-  background:var(--card); border:1px solid var(--line); border-left:3px solid var(--deep);
-  border-radius:0 6px 6px 0; padding:14px 17px; margin-bottom:16px;
-}
-.caveat h2{font-size:13px; margin:0 0 7px; font-weight:600}
-.caveat p{font-family:Literata,Georgia,serif; font-size:13.5px; color:var(--ink-2); margin:0 0 7px; max-width:78ch}
-.caveat p:last-child{margin-bottom:0}
+/* --- подвал --- */
 footer{
-  margin-top:34px; padding-top:18px; border-top:1px solid var(--line);
-  font-size:12.5px; color:var(--muted); max-width:80ch;
+  margin-top:38px; padding-top:22px; border-top:3px solid var(--acc);
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px 34px;
 }
-footer a{color:var(--deep)}
-.scroll-x{overflow-x:auto}
-.scroll-x svg{min-width:640px}
+footer h3{font-size:13px; text-transform:uppercase; letter-spacing:.07em; color:var(--acc); font-weight:700; margin:0 0 7px}
+footer p{font-size:14px; color:var(--muted); margin:0; line-height:1.6}
 
+/* ============ адаптив ============ */
+@media (max-width:900px){
+  header.hero{grid-template-columns:1fr; gap:22px; align-items:start; padding-top:34px}
+  .lede{max-width:none}
+  .detail .cols{grid-template-columns:1fr; gap:20px}
+}
 @media (max-width:860px){
-  .wrap{padding:22px 14px 60px}
-  .bar{grid-template-columns:118px 1fr 62px; gap:8px}
-  .bar .nm{font-size:12px}
-  .passport{gap:0 18px; font-size:11px}
-  .filters{gap:9px}
+  .wrap{padding:0 15px 60px}
+  .bar{grid-template-columns:130px 1fr 74px; gap:9px}
+  .bar .nm{font-size:13px}
+  .filters{gap:11px; padding:14px}
   .field{flex:1 1 100%}
   input[type=search],select{width:100%; min-width:0}
   .reset{margin-left:0; width:100%}
-  .tiles{grid-template-columns:repeat(2,1fr)}
+  .kpis{grid-template-columns:repeat(2,1fr)}
 
   /* таблица превращается в карточки */
   table{min-width:0}
+  .tw{border-radius:10px}
   thead{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
   tbody tr.row{
-    display:grid; grid-template-columns:1fr 1fr; gap:2px 10px;
-    padding:11px 13px; border-bottom:1px solid var(--line);
+    display:grid; grid-template-columns:1fr 1fr; gap:3px 12px;
+    padding:13px 15px; border-bottom:1px solid var(--line);
   }
-  tbody tr.row td{border:0; padding:0; font-size:13px}
-  tbody tr.row td.frz{grid-column:1/-1; font-size:15px; font-weight:600; margin-bottom:3px}
-  tbody tr.row td:nth-child(2){grid-column:1/-1; margin-bottom:5px}
+  tbody tr.row td{border:0; padding:0; font-size:14px}
+  tbody tr.row td.frz{grid-column:1/-1; font-size:16px; font-weight:700; margin-bottom:4px}
+  tbody tr.row td:nth-child(2){grid-column:1/-1; margin-bottom:6px}
   tbody tr.row td.lang{display:none}
-  tbody tr.row td.num{
-    display:flex; justify-content:space-between; align-items:baseline; gap:8px; text-align:right;
-  }
+  tbody tr.row td.num{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
   tbody tr.row td.num::before{
-    content:attr(data-l); font-family:"JetBrains Mono",ui-monospace,monospace;
-    font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted);
+    content:attr(data-l); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--muted); font-weight:600;
   }
-  tr.detail td{display:block; padding:12px 13px}
-  .detail .cols{gap:16px}
-  .detail svg{max-width:100%}
-  .ctry{min-width:0}
+  tr.detail td{display:block; padding:14px 15px}
   .small-mult{grid-template-columns:1fr}
 }
 @media (max-width:520px){
-  .tiles{grid-template-columns:1fr}
-  /* название кластера перестаёт обрезаться: уходит на свою строку */
-  .bar{grid-template-columns:1fr auto; gap:2px 10px; padding:6px 4px}
-  .bar .nm{grid-column:1/-1; white-space:normal; font-size:12.5px}
-  .bar .tr{grid-column:1; height:11px}
-  .bar .vl{grid-column:2; font-size:11.5px}
+  .kpis{grid-template-columns:1fr}
+  .bar{grid-template-columns:1fr auto; gap:2px 10px; padding:7px 5px}
+  .bar .nm{grid-column:1/-1; white-space:normal; font-size:13.5px}
+  .bar .tr{grid-column:1; height:12px}
+  .bar .vl{grid-column:2}
+  h1{font-size:26px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <p class="eyebrow">Приложение к обзору рынка морской подготовки · август 2026</p>
-  <h1>Разведка спроса моряков</h1>
-  <p class="lede">Ядро из 8 113 поисковых фраз с помесячной динамикой за два года и раскладкой
-  по десяти странам. Кластеры, фразы, тренды — с фильтрами и оговорками, которые к ним прилагаются.</p>
-  <div class="passport">
-    <div><span>фраз в ядре</span><b>8 113</b></div>
-    <div><span>из них с данными</span><b id="p-frz">—</b></div>
-    <div><span>кластеров</span><b id="p-kls">—</b></div>
-    <div><span>стран</span><b id="p-str">—</b></div>
-    <div><span>окно</span><b>июл 2024 — июн 2026</b></div>
-    <div><span>источник</span><b>Google Keyword Planner</b></div>
+<header class="hero">
+  <div>
+    <p class="eyebrow">Приложение к обзору рынка морской подготовки · август 2026</p>
+    <h1>Разведка спроса моряков</h1>
+    <p class="lede">Ядро, на котором построен раздел о спросе: поисковые фразы с помесячной
+    динамикой за два года и раскладкой по десяти странам. С фильтрами и с оговорками,
+    которые к этим числам прилагаются.</p>
   </div>
+  <dl class="passport">
+    <dt>Фраз в ядре</dt><dd>8 113</dd>
+    <dt>Из них с данными</dt><dd id="p-frz">—</dd>
+    <dt>Кластеров</dt><dd id="p-kls">—</dd>
+    <dt>Стран</dt><dd id="p-str">—</dd>
+    <dt>Окно</dt><dd>июл 24 — июн 26</dd>
+  </dl>
 </header>
 
 <div class="tabs" role="tablist">
@@ -283,7 +266,7 @@ footer a{color:var(--deep)}
 <section class="panel" id="t-frazy" role="tabpanel" aria-labelledby="tb-frazy">
   <div class="filters">
     <div class="field"><label for="f-q">Поиск по фразе</label>
-      <input type="search" id="f-q" placeholder="например: нбжс, сертификат, tanker"></div>
+      <input type="search" id="f-q" placeholder="нбжс, сертификат, tanker"></div>
     <div class="field"><label for="f-k">Кластер</label><select id="f-k"></select></div>
     <div class="field"><label for="f-l">Язык</label><select id="f-l">
       <option value="">все</option><option value="ru">русский</option>
@@ -295,20 +278,20 @@ footer a{color:var(--deep)}
     <button class="reset" id="f-reset">Сбросить</button>
   </div>
 
-  <div class="tiles">
-    <div class="tile"><span>фраз показано</span><b id="t-n">—</b><em id="t-n-sub">—</em></div>
-    <div class="tile"><span>объём за период</span><b id="t-v">—</b><em>обращений, Украина</em></div>
-    <div class="tile"><span>год к году</span><b id="t-d">—</b><em id="t-d-sub">—</em></div>
-    <div class="tile"><span>медиана цены клика</span><b id="t-c">—</b><em id="t-c-sub">гривен, верх страницы</em></div>
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-l">Фраз показано</div><div class="kpi-v" id="t-n">—</div><div class="kpi-s" id="t-n-sub">—</div></div>
+    <div class="kpi meta"><div class="kpi-l">Объём за период</div><div class="kpi-v" id="t-v">—</div><div class="kpi-s">обращений, Украина</div></div>
+    <div class="kpi good"><div class="kpi-l">Год к году</div><div class="kpi-v" id="t-d">—</div><div class="kpi-s" id="t-d-sub">—</div></div>
+    <div class="kpi goog"><div class="kpi-l">Медиана цены клика</div><div class="kpi-v" id="t-c">—</div><div class="kpi-s" id="t-c-sub">гривен, верх страницы</div></div>
   </div>
 
-  <div class="rail">
+  <div class="card">
     <h2>Распределение объёма по кластерам</h2>
-    <p>Нажатие на строку фильтрует таблицу. Значения — за выбранный период, Украина.</p>
+    <p class="note">Нажатие на строку отбирает кластер в таблице. Значения — за выбранный период, Украина.</p>
     <div class="bars" id="rail"></div>
   </div>
 
-  <div class="tablewrap">
+  <div class="tw">
     <table id="tbl">
       <thead><tr>
         <th data-s="f">Фраза <span class="ar"></span></th>
@@ -333,13 +316,13 @@ footer a{color:var(--deep)}
     <div class="field"><label for="k-a">Кластер</label><select id="k-a"></select></div>
     <div class="field"><label for="k-b">Сравнить с</label><select id="k-b"></select></div>
   </div>
-  <div class="chart-box">
+  <div class="card">
     <h2 id="k-title">—</h2>
     <p class="note">Помесячно, обращений в месяц. Значения округлены Планировщиком до ступеней шкалы.</p>
     <div class="plate scroll-x"><svg id="k-svg" viewBox="0 0 900 300" role="img" aria-label="Помесячная динамика кластеров"></svg></div>
     <div class="legend" id="k-leg"></div>
   </div>
-  <div class="tablewrap">
+  <div class="tw">
     <table><thead><tr>
       <th>Кластер</th><th class="num">Фраз</th><th class="num">Объём 24 мес</th>
       <th class="num">Год 1</th><th class="num">Год 2</th><th class="num">Изм.</th>
@@ -349,20 +332,20 @@ footer a{color:var(--deep)}
 
 <!-- ТРЕНДЫ -->
 <section class="panel" id="t-trendy" role="tabpanel" aria-labelledby="tb-trendy" hidden>
-  <div class="caveat">
+  <div class="card note">
     <h2>Что это за числа</h2>
-    <p>Google Trends отдаёт индекс, нормированный на собственный максимум каждого ряда,
-    а не количество обращений. Абсолютных величин за ним нет и быть не может.</p>
-    <p>Каждый ряд сравним сам с собой во времени и <b>не сравним по величине с соседним</b>.
-    Поэтому здесь не общий график, а отдельная панель на каждый запрос. Значение —
-    сумма индекса за январь–август соответствующего года.</p>
+    <p class="note" style="margin-bottom:0">Google Trends отдаёт индекс, нормированный на собственный
+    максимум каждого ряда, а не количество обращений: абсолютных величин за ним нет и быть не может.
+    Каждый ряд сравним сам с собой во времени и не сравним по величине с соседним — поэтому здесь
+    не общий график, а отдельная панель на каждый запрос. Значение — сумма индекса за январь–август
+    соответствующего года.</p>
   </div>
-  <div class="chart-box">
+  <div class="card">
     <h2>Украина</h2>
     <p class="note">Сумма индекса за январь–август, 2022 → 2026.</p>
     <div class="small-mult" id="tr-ua"></div>
   </div>
-  <div class="chart-box">
+  <div class="card">
     <h2>Мир</h2>
     <p class="note">Те же годы, запросы на английском, вся планета.</p>
     <div class="small-mult" id="tr-mir"></div>
@@ -370,18 +353,26 @@ footer a{color:var(--deep)}
 </section>
 
 <footer>
-  <p><b>Как читать.</b> Планировщик показывает не счётчик обращений, а оценку, округлённую
-  до тридцати девяти фиксированных ступеней: медианный шаг между соседними ступенями
-  двадцать два процента. Любая кратность, посчитанная от таких значений, наследует эту
-  погрешность, а повторный сбор даст немного другие числа.</p>
-  <p>Однословные запросы по смыслу смешанные: <i>marlins</i> — бейсбольный клуб,
-  <i>ces</i> — выставка электроники, <i>танкер</i> ведёт себя как новостная лента.
-  С ними годовая динамика Украины читается как +18,3 %, без них как −2,9 %.
-  Переключатель «без однословных» в фильтрах управляет именно этим.</p>
-  <p>Кластер определяется словарём маркеров по тексту фразы, единообразно для всех фраз.
-  Это не та тематическая разметка, по которой построены девятнадцать тем в самом обзоре, —
-  границы кластеров здесь свои, и суммы по ним с обзором не сходятся.
-  Кластер «Прочее и смежное» собирает всё, что словарь не опознал.</p>
+  <div>
+    <h3>Что такое эти числа</h3>
+    <p>Планировщик показывает не счётчик обращений, а оценку, округлённую до тридцати девяти
+    фиксированных ступеней: медианный шаг между соседними ступенями двадцать два процента.
+    Любая кратность, посчитанная от таких значений, наследует эту погрешность, а повторный сбор
+    даст немного другие числа.</p>
+  </div>
+  <div>
+    <h3>Про однословные запросы</h3>
+    <p>По смыслу они смешанные: marlins — бейсбольный клуб, ces — выставка электроники,
+    танкер ведёт себя как новостная лента. С ними годовая динамика Украины читается
+    как +18,3 %, без них как −2,9 %. Переключатель «без однословных» управляет именно этим.</p>
+  </div>
+  <div>
+    <h3>Откуда берутся кластеры</h3>
+    <p>Кластер определяется словарём маркеров по тексту фразы, единообразно для всех фраз.
+    Это не та тематическая разметка, по которой построены девятнадцать тем в самом обзоре:
+    границы кластеров здесь свои, и суммы по ним с обзором не сходятся. Кластер
+    «Прочее и смежное» собирает всё, что словарь не опознал.</p>
+  </div>
 </footer>
 </div>
 
