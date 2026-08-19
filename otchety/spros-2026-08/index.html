@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b405c" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d1b26" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Приложение к обзору рынка морской подготовки: 8 113 поисковых фраз, помесячная динамика, десять стран, тренды за пять лет.">
+<meta name="description" content="Приложение к обзору рынка морской подготовки: 8 113 поисковых фраз, помесячная динамика, десять стран, разбор трендов за пять лет.">
 <title>Разведка спроса моряков</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,6 +120,12 @@ input[type=search]{min-width:236px}
 .card h2{font-family:var(--sh);
   font-size:18px; margin:0 0 4px; letter-spacing:-.01em}
 .card p.note{font-size:14px; color:var(--muted); margin:0 0 14px}
+.card .proza{font-size:15px; color:var(--ink); margin:0 0 13px; max-width:76ch; line-height:1.62}
+.card .proza:last-child{margin-bottom:0}
+.card h3.pod{
+  font-family:var(--sh); font-size:15px; font-weight:600; margin:22px 0 9px;
+  border-left:3px solid var(--gold); padding-left:11px;
+}
 
 /* --- рейка кластеров: каждая строка — переключатель --- */
 .rail-head{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:12px}
@@ -208,15 +214,19 @@ tbody tr.row.open .tog{background:var(--navy); border-color:var(--navy); color:#
 .ctry .cb{display:block; height:10px; background:var(--panel-2); border-radius:3px; min-width:60px; overflow:hidden}
 .ctry .cb i{display:block; height:100%; min-width:3px; background:var(--meta); border-radius:0 3px 3px 0}
 .ctry .cv{font-size:12.5px; font-variant-numeric:tabular-nums; color:var(--muted); font-weight:600}
-.tbl-hint{
-  margin:0; padding:9px 14px; font-size:12.5px; color:var(--muted);
-  border-top:1px solid var(--line); background:var(--panel);
-}
+.tbl-foot{border-top:1px solid var(--line); background:var(--panel)}
+.tbl-hint{margin:0; padding:10px 14px 0; font-size:12.5px; color:var(--muted)}
+.tbl-hint #pokazano{display:block; margin-top:3px; font-weight:600; color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.tbl-btn{display:flex; flex-wrap:wrap; gap:8px; padding:10px 14px 12px}
 .more{
-  display:block; width:100%; padding:13px; border:0; border-top:1px solid var(--line);
-  background:var(--panel); font:inherit; font-size:14px; color:var(--acc); cursor:pointer; font-weight:600;
+  flex:1 1 190px; padding:11px 14px; border:1px solid var(--navy); border-radius:8px;
+  background:var(--navy); color:#ffffff; font:inherit; font-family:var(--sh); font-size:14px;
+  font-weight:600; cursor:pointer;
 }
-.more:hover{background:var(--panel-2)}
+.more:hover{background:var(--navy-2); border-color:var(--navy-2)}
+.more-2{background:transparent; color:var(--navy)}
+.more-2:hover{background:var(--panel-2); color:var(--navy)}
 .empty{padding:44px 20px; text-align:center; color:var(--muted); font-size:15px}
 
 /* --- графики --- */
@@ -363,8 +373,14 @@ footer p{font-size:14px; color:var(--muted); margin:0; line-height:1.6}
       </tr></thead>
       <tbody id="tb"></tbody>
     </table>
-    <p class="tbl-hint">Нажмите на строку — раскроется помесячный ряд и раскладка по странам.</p>
-    <button class="more" id="more" hidden>Показать ещё</button>
+    <div class="tbl-foot">
+      <p class="tbl-hint">Нажмите на строку — раскроется помесячный ряд и раскладка по странам.
+      <span id="pokazano"></span></p>
+      <div class="tbl-btn">
+        <button class="more" id="more" hidden>Показать ещё</button>
+        <button class="more more-2" id="more-all" hidden>Показать все</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -391,6 +407,49 @@ footer p{font-size:14px; color:var(--muted); margin:0; line-height:1.6}
 
 <!-- ТРЕНДЫ -->
 <section class="panel" id="t-trendy" role="tabpanel" aria-labelledby="tb-trendy" hidden>
+  <div class="card note">
+    <h2>Что показывают эти ряды</h2>
+    <p class="proza">Google Trends в этой нише видит немногое, и это первое, что стоит знать.
+    Шесть тем — Marlins, STCW, НБЖС, медкомиссия для моряков, судоводитель, морские документы —
+    по Украине лежат ниже порога чувствительности инструмента и дают ноль или шум. То есть
+    ядро рынка подготовки Trends внутри страны просто не различает; по нему работают
+    Планировщик и Serpstat, а не Trends.</p>
+
+    <p class="proza">То, что инструмент всё-таки различает, за пять лет упало, и упало сильно.
+    Крюинг потерял девяносто процентов индекса, морская академия девяносто шесть, Морречсервис
+    девяносто один, паспорт моряка семьдесят пять. Это запросы про вход в профессию,
+    трудоустройство и государственные услуги — целый слой интереса, который был и сжался.</p>
+
+    <p class="proza">Исключение одно, и оно совпадает с тем, что показывают другие инструменты.
+    Верификация за пять лет потеряла половину, но между 2025 и 2026 годом не потеряла ничего:
+    355 против 355. Единственный ряд, который перестал падать, — про проверку уже полученного
+    документа.</p>
+
+    <p class="proza">Мировые ряды идут в другую сторону теми же темами. STCW прибавил сорок
+    девять процентов, crewing agency пятьдесят семь, seaman book двадцать семь, а seafarer jobs
+    вырос втрое с лишним. Отдельно стоит STCW по Филиппинам — минус тридцать один процент
+    у страны, которая поставляет больше всего командного состава в мире.</p>
+
+    <p class="proza">Слово STCW при этом одновременно ниже порога по Украине и даёт полноценный
+    мировой ряд. Это не противоречие, а разница плотности: внутри страны запрос слишком редкий
+    на фоне всего поиска в регионе, в мире — достаточно частый.</p>
+
+    <h3 class="pod">Где ищут внутри страны</h3>
+    <p class="proza">По запросу «крюинг» Одесская область принята за сто. Херсонская даёт
+    семьдесят семь, Севастополь семьдесят шесть, Николаевская четырнадцать, Крым семнадцать.
+    Херсон и Севастополь идут почти вровень с Одессой. Второй, независимый разрез даёт
+    Николаевской сорок вместо четырнадцати; какой запрос за ним стоит, в источниках
+    не указано, и свести два разреза не удалось.</p>
+
+    <p class="proza">Связанные запросы сняты только по одной теме. У «крюинга» это
+    «укр крюинг», «крюинг это», «эпсилон крюинг», «коламбия крюинг»; растущий —
+    «эпсилон крюинг» плюс семьдесят процентов. По остальным темам связанные запросы
+    в материалах не снимались.</p>
+
+    <p class="proza">Ряд «моряк» формально ровный, но читать его как спрос нельзя: в связанных
+    запросах у него мультфильм про Попая, песни и кинотеатр. В панелях он оставлен как фон.</p>
+  </div>
+
   <div class="card note">
     <h2>Что это за числа</h2>
     <p class="note" style="margin-bottom:0">Google Trends отдаёт индекс, нормированный на собственный
@@ -485,7 +544,8 @@ const OKNA_NAZV={"24":"за 24 месяца","g1":"за предыдущий г�
 function objem(z,o){const[a,b]=OKNA[o];let s=0;for(let i=a;i<b;i++)s+=z.m[i];return s;}
 
 /* ---------- состояние ---------- */
-const st={q:"",k:[],l:"",p:"24",w:false,sort:"v",dir:-1,limit:100,open:null};
+const SHAG=20;
+const st={q:"",k:[],l:"",p:"24",w:false,sort:"v",dir:-1,limit:SHAG,open:null};
 const $=id=>document.getElementById(id);
 
 $("p-frz").textContent=nf(D.frazy.length);
@@ -560,8 +620,14 @@ function risTablicu(){
     }).join("");
     [...tb.querySelectorAll("tr.row")].forEach(tr=>tr.addEventListener("click",()=>{
       const z=vid[+tr.dataset.f]; st.open=st.open===z.f?null:z.f; risTablicu();}));
-    $("more").hidden=all.length<=st.limit;
-    $("more").textContent=`Показать ещё · осталось ${nf(all.length-st.limit)}`;
+    const ost=all.length-st.limit;
+    $("more").hidden = ost<=0;
+    $("more-all").hidden = ost<=0;
+    $("more").textContent=`Показать ещё ${nf(Math.min(SHAG,ost))}`;
+    $("more-all").textContent=`Показать все ${nf(all.length)}`;
+    $("pokazano").textContent = ost>0
+      ? `Показано ${nf(Math.min(st.limit,all.length))} из ${nf(all.length)}`
+      : `Показаны все ${nf(all.length)}`;
   }
   // плитки
   const sumV=all.reduce((s,z)=>s+objem(z,o),0);
@@ -601,7 +667,7 @@ function risRail(all,o){
     const k=b.dataset.k;
     st.k = st.k.includes(k) ? st.k.filter(x=>x!==k) : st.k.concat([k]);
     selK.value = st.k.length===1 ? st.k[0] : "";
-    st.limit=100; st.open=null; risTablicu();}));
+    st.limit=SHAG; st.open=null; risTablicu();}));
   // шапка: что отобрано и как снять
   const rh=$("rail-head");
   if(!st.k.length){
@@ -613,23 +679,24 @@ function risRail(all,o){
     [...rh.querySelectorAll(".sel")].forEach(b=>b.addEventListener("click",()=>{
       st.k = b.dataset.k==="__all" ? [] : st.k.filter(x=>x!==b.dataset.k);
       selK.value = st.k.length===1 ? st.k[0] : "";
-      st.limit=100; st.open=null; risTablicu();}));
+      st.limit=SHAG; st.open=null; risTablicu();}));
   }
 }
 
-$("f-q").addEventListener("input",e=>{st.q=e.target.value;st.limit=100;st.open=null;risTablicu();});
-selK.addEventListener("change",e=>{st.k=e.target.value?[e.target.value]:[];st.limit=100;st.open=null;risTablicu();});
-$("f-l").addEventListener("change",e=>{st.l=e.target.value;st.limit=100;st.open=null;risTablicu();});
+$("f-q").addEventListener("input",e=>{st.q=e.target.value;st.limit=SHAG;st.open=null;risTablicu();});
+selK.addEventListener("change",e=>{st.k=e.target.value?[e.target.value]:[];st.limit=SHAG;st.open=null;risTablicu();});
+$("f-l").addEventListener("change",e=>{st.l=e.target.value;st.limit=SHAG;st.open=null;risTablicu();});
 $("f-p").addEventListener("change",e=>{st.p=e.target.value;st.open=null;risTablicu();});
-$("f-w").addEventListener("change",e=>{st.w=e.target.checked;st.limit=100;st.open=null;risTablicu();});
-$("more").addEventListener("click",()=>{st.limit+=200;risTablicu();});
+$("f-w").addEventListener("change",e=>{st.w=e.target.checked;st.limit=SHAG;st.open=null;risTablicu();});
+$("more").addEventListener("click",()=>{st.limit+=SHAG;risTablicu();});
+$("more-all").addEventListener("click",()=>{st.limit=1e9;risTablicu();});
 $("f-reset").addEventListener("click",()=>{
-  Object.assign(st,{q:"",k:[],l:"",p:"24",w:false,sort:"v",dir:-1,limit:100,open:null});
+  Object.assign(st,{q:"",k:[],l:"",p:"24",w:false,sort:"v",dir:-1,limit:SHAG,open:null});
   $("f-q").value="";selK.value="";$("f-l").value="";$("f-p").value="24";$("f-w").checked=false;risTablicu();});
 [...document.querySelectorAll("#tbl thead th")].forEach(th=>th.addEventListener("click",()=>{
   const s=th.dataset.s;
   if(st.sort===s) st.dir*=-1; else {st.sort=s; st.dir = s==="f"||s==="k"||s==="l" ? 1 : -1;}
-  st.limit=100; st.open=null; risTablicu();}));
+  st.limit=SHAG; st.open=null; risTablicu();}));
 
 /* ---------- кластеры ---------- */
 const kS=$("k-s"), kA=$("k-a"), kB=$("k-b");
