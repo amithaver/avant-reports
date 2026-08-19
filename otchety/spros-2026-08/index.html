@@ -495,10 +495,11 @@ $("p-str").textContent=STRANY.length;
 const selK=$("f-k");
 selK.innerHTML='<option value="">все кластеры</option>'+KLS.map(k=>`<option>${k}</option>`).join("");
 
-function otbor(){
+function otbor(bezKlasterov){
   const q=st.q.trim().toLowerCase();
   return D.frazy.filter(z=>
-    (!q||z.f.includes(q)) && (!st.k.length||st.k.includes(z.k)) &&
+    (!q||z.f.includes(q)) &&
+    (bezKlasterov || !st.k.length || st.k.includes(z.k)) &&
     (!st.l||z.l===st.l) && (!st.w||z.w===0));
 }
 function sortiruj(a,o){
@@ -573,7 +574,7 @@ function risTablicu(){
   $("t-d-sub").textContent=`${nf(sg1)} → ${nf(sg2)}`;
   $("t-c").textContent=cpc.length?cpc[Math.floor(cpc.length/2)].toFixed(1):"—";
   $("t-c-sub").textContent=cpc.length?`известна у ${nf(cpc.length)} фраз из ${nf(all.length)}`:"ни у одной фразы выборки";
-  risRail(all,o);
+  risRail(otbor(true),o);
   [...document.querySelectorAll("#tbl thead th")].forEach(th=>{
     th.querySelector(".ar").textContent = th.dataset.s===st.sort ? (st.dir<0?"▼":"▲") : "";
   });
@@ -587,7 +588,7 @@ function strany(z){
 function risRail(all,o){
   const sum={}; KLS.forEach(k=>sum[k]=0);
   all.forEach(z=>sum[z.k]+=objem(z,o));
-  const par=KLS.map(k=>[k,sum[k]]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]);
+  const par=KLS.map(k=>[k,sum[k]]).filter(x=>x[1]>0||st.k.includes(k)).sort((a,b)=>b[1]-a[1]);
   const mx=par.length?par[0][1]:1;
   $("rail").innerHTML=par.map(([k,v])=>{
     const on=st.k.includes(k);
