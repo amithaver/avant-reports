@@ -126,6 +126,15 @@ input[type=search]{min-width:236px}
 
 /* --- таблица --- */
 .tw{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--bg); margin-bottom:20px}
+/* подсказка, что таблица прокручивается вбок: тень появляется только у обрезанного края */
+.tw{
+  background:
+    linear-gradient(90deg, var(--bg) 30%, rgba(255,255,255,0)) left center / 28px 100% no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0), var(--bg) 70%) right center / 28px 100% no-repeat,
+    radial-gradient(farthest-side at 0 50%, rgba(31,58,95,.16), rgba(31,58,95,0)) left center / 13px 100% no-repeat,
+    radial-gradient(farthest-side at 100% 50%, rgba(31,58,95,.16), rgba(31,58,95,0)) right center / 13px 100% no-repeat;
+  background-attachment: local, local, scroll, scroll;
+}
 table{border-collapse:collapse; width:100%; min-width:840px}
 th,td{padding:10px 14px; text-align:left; border-bottom:1px solid var(--line); font-size:14.5px}
 thead th{
