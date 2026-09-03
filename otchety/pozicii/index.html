@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Позиции сайта в поиске Google</title>
+<meta name="description" content="Позиции tcsavant.com в поиске Google по неделям: сводка, направления, разрезы и все запросы.">
+<link rel="stylesheet" href="app.css">
+<!-- иконка вкладки встроена: отдельный файл дал бы лишний запрос и 404 в консоли -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23123e5c'/%3E%3Cpath d='M9 23 16 9l7 14' stroke='%23f1bd54' stroke-width='3' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E">
+<script>
+  /* тема ставится до первой отрисовки, иначе на тёмной теме мигает белым */
+  try {
+    var t = localStorage.getItem('avant-pozicii-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="top__in">
+    <div class="brand">
+      <div class="brand__mark" aria-hidden="true">AV</div>
+      <div>
+        <div class="brand__t">Позиции сайта в поиске Google</div>
+        <div class="brand__s" id="brandSub">Еженедельный съём по всем отслеживаемым запросам</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <label class="field">
+        <span class="field__l">Срез</span>
+        <select class="pick" id="selNow"></select>
+      </label>
+      <label class="field">
+        <span class="field__l">Сравнить с</span>
+        <select class="pick" id="selBase"></select>
+      </label>
+      <button class="iconbtn" id="btnTheme" type="button" title="Светлая или тёмная тема" aria-label="Переключить тему">◐</button>
+    </div>
+  </div>
+</header>
+
+<div id="boot" class="boot">
+  <p>Загружаются данные…</p>
+</div>
+
+<main class="wrap" id="app" hidden>
+
+  <div class="periodline" id="periodLine"></div>
+  <div id="warnings"></div>
+
+  <!-- ── сводка ─────────────────────────────────────────────── -->
+  <section class="kpis" id="kpis" aria-label="Сводка"></section>
+
+  <!-- ── история ────────────────────────────────────────────── -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Как менялось от съёма к съёму</h2>
+      <p>Все замеры, а не только выбранная пара. Кружком отмечен выбранный срез, ромбом — база сравнения.</p>
+      <div class="tabs" id="chartTabs" style="margin-left:auto"></div>
+    </div>
+    <div class="chartbox" id="chart"></div>
+  </section>
+
+  <!-- ── движение ───────────────────────────────────────────── -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Что произошло с запросами за период</h2>
+      <p id="movePeriod"></p>
+    </div>
+    <div class="moves" id="moves"></div>
+    <div class="stack" id="moveStack" aria-hidden="true"></div>
+    <p class="movenote" id="moveRest"></p>
+  </section>
+
+  <!-- ── направления ────────────────────────────────────────── -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Направления обучения</h2>
+      <p>Клик по строке отбирает эти запросы в таблице внизу.</p>
+      <div class="tabs" id="clusterTabs" style="margin-left:auto"></div>
+    </div>
+    <div class="clusters" id="clusters"></div>
+  </section>
+
+  <!-- ── разрезы ────────────────────────────────────────────── -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Разрезы</h2>
+      <p>Фильтры складываются друг с другом и с направлением.</p>
+    </div>
+    <div class="cuts">
+      <div><div class="cut__t">По языку запроса</div><div class="cut__list" id="cutLang"></div></div>
+      <div><div class="cut__t">По типу запроса</div><div class="cut__list" id="cutType"></div></div>
+      <div><div class="cut__t">Название города в запросе</div><div class="cut__list" id="cutGeo"></div></div>
+    </div>
+  </section>
+
+  <!-- ── таблица ────────────────────────────────────────────── -->
+  <section class="panel">
+    <div class="panel__head">
+      <h2>Все запросы</h2>
+      <p id="tableCount"></p>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div class="toolbar">
+      <div class="tabs" id="tableTabs"></div>
+      <input class="search" id="search" type="search" placeholder="Поиск по фразе…" autocomplete="off" spellcheck="false">
+    </div>
+
+    <div class="tablewrap">
+      <table class="kt">
+        <thead><tr id="thead"></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="pager">
+      <div class="pager__i" id="pagerInfo"></div>
+      <div class="pager__b" id="pagerBtns"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot" id="foot"></footer>
+
+<div class="tip" id="tip" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
