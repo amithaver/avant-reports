@@ -53,8 +53,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--sea);outline-of
 .hint{position:absolute;left:14px;bottom:12px;font-size:12px;color:var(--muted);background:rgba(6,18,27,.75);border:1px solid var(--line);padding:6px 10px;border-radius:8px;pointer-events:none}
 .load{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted)}
 /* cards */
-.card{width:100%;height:100%;border-radius:14px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);padding:12px 14px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;font-family:var(--f-body);color:var(--ink);transition:border-color .2s,box-shadow .2s}
-.card::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:var(--c,var(--sea))}
+.card{width:100%;height:100%;border-radius:14px;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-top:3px solid var(--c,var(--sea));padding:10px 14px 12px;display:flex;flex-direction:column;gap:8px;font-family:var(--f-body);color:var(--ink)}
 .card:hover{border-color:var(--c,var(--sea));box-shadow:0 0 0 1px var(--c,var(--sea)),0 12px 30px rgba(0,0,0,.35)}
 .card.hl{border-color:#fff;box-shadow:0 0 0 2px var(--c,var(--sea)),0 0 40px color-mix(in srgb,var(--c,var(--sea)) 60%,transparent)}
 .k-course{--c:var(--sea)} .k-link{--c:var(--sea);border-style:dashed;background:linear-gradient(180deg,rgba(20,48,73,.55),rgba(15,37,54,.55))} .k-umb{--c:var(--umb)} .k-new{--c:var(--new)} .k-art{--c:#7fc8d8} .k-svc{--c:#6f8799}
@@ -62,7 +61,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--sea);outline-of
 .chip{font:700 9.5px var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--c,var(--sea))}
 .st{font:600 10.5px var(--f-body);padding:2px 8px;border-radius:99px;background:color-mix(in srgb,var(--c,var(--sea)) 16%,transparent);color:var(--c,var(--sea));white-space:nowrap}
 .st.live{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
-.ttl{font-weight:600;font-size:13.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
+.ttl{font-weight:600;font-size:13.5px;line-height:1.25;min-height:34px}
 .langs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:auto}
 .lg{border:1px solid var(--line);border-radius:9px;padding:4px 7px;display:flex;align-items:baseline;gap:5px;background:rgba(0,0,0,.18)}
 .lg b{font:700 10px var(--f-body);letter-spacing:.06em;color:var(--muted)}
@@ -74,7 +73,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--sea);outline-of
 .grp .big b{font:700 34px var(--f-mono);letter-spacing:-.03em;color:var(--c,var(--sea));line-height:1}
 .grp .big span{color:var(--muted);font-size:12.5px;line-height:1.2}
 .grp .name{font-family:var(--f-disp);font-weight:500;font-size:15px}
-.sec .name{font-weight:700;font-size:13.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sec .name{font-weight:700;font-size:13.5px;line-height:1.25}
 .sec .big b{font-size:26px}
 .root{background:radial-gradient(400px 200px at 50% 0,rgba(70,184,230,.25),transparent),linear-gradient(180deg,#123a55,#0d2638);border-color:#2a5a7a}
 .root .name{font-family:var(--f-disp);font-weight:700;font-size:20px}
@@ -102,7 +101,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--sea);outline-of
 .kw td{padding:4px 0;border-top:1px solid var(--line);vertical-align:top}
 .kw td:last-child{text-align:right;font:12px var(--f-mono);color:var(--muted);white-space:nowrap;padding-left:12px}
 .note{font-size:12px;color:var(--muted)}
-@media (max-width:640px){.kpi{min-width:0;flex:1 1 30%}.kpi b{font-size:18px}.legend{display:none}}
+@media (max-width:640px){.app{gap:8px;padding-block:10px}.brand p{display:none}.compass{width:30px;height:30px}.app{grid-template-columns:minmax(0,1fr)}header,.bar{min-width:0}header>*,.bar>*{min-width:0;max-width:100%}.kpis{flex-wrap:nowrap;overflow-x:auto;width:100%;max-width:100%;padding-bottom:2px}.kpi{flex:0 0 auto;min-width:92px;padding:6px 10px}.kpi b{font-size:16px}.kpi span{font-size:10.5px;white-space:nowrap}.legend{display:none}.tools{gap:6px}.btn,.seg button{padding:6px 9px;font-size:12px}.search input{width:100%}.search{flex:1 1 100%}.stage{height:78vh;min-height:0}.hint{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -151,6 +150,7 @@ let lang='uk',layout='top',chart;
 const byId=Object.fromEntries(NODES.map(n=>[n.id,n]));
 const fmt=n=>Math.round(n).toLocaleString('uk-UA');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function cut(s,n){s=String(s??'');return s.length>n?s.slice(0,n-1).trimEnd()+'…':s}
 function title(n){if(n.pk==='umb')return UMBN[n.id.slice(4)]||n.id;if(n.pk==='new'){const s=n.id.slice(4).replace(/_/g,' ');return s.charAt(0).toUpperCase()+s.slice(1)}return n.t}
 const CH={course:'Курс',umb:'Хаб',new:'Нова',art:'Стаття',svc:'Службова',link:'Також у хабі',home:'Головна сторінка',hubpage:'Сторінка розділу'};
 function langsPage(n){const plan=n.pk==='umb'||n.pk==='new';return '<div class="langs">'+L.map(l=>{const d=n.L[l];const c=plan?'plan':(d.u?'has':'no');return `<div class="lg ${c}${l===lang?' cur':''}"><b>${LN[l]}</b><em>${d.k}</em></div>`}).join('')+'</div>'}
@@ -160,13 +160,15 @@ function content(d){
  if(n.kind==='root')return `<div class="card root"><div class="top"><span class="chip">Сайт</span><span class="st live">3 мови</span></div><div class="name">tcsavant.com</div><div class="foot">Головна: <b>${n.L?n.L.uk.k+n.L.ru.k+n.L.en.k:0}</b> ключів (клік — список) · Сайт: <b>${fmt(n.A.n)}</b> сторінок · <b>${fmt(n.A.uk.k+n.A.ru.k+n.A.en.k)}</b> ключів · ключів за мовами:</div>${langsAgg(n.A)}</div>`;
  if(n.kind==='group'){const k={cat:'course',umb:'umb',new:'new',blog:'art',svc:'svc'}[n.g];
   return `<div class="card grp k-${k}"><div class="name">${esc(n.t)}</div><div class="big"><b>${fmt(n.A.n)}</b><span>${esc(n.sub)}</span></div><div class="foot">${n.L?'Сторінка розділу: <b>'+(n.L.uk.k+n.L.ru.k+n.L.en.k)+'</b> ключів (клік — список) · ':''}Частота ${LN[lang]}: <b>${fmt(n.A[lang].f)}</b> · ключів за мовами:</div>${langsAgg(n.A)}</div>`}
- if(n.kind==='sec')return `<div class="card grp sec k-course"><div class="top"><span class="chip">Напрямок</span></div><div class="name">${esc(n.t)}</div><div class="big"><b>${n.A.n}</b><span>${n.A.n===1?'курс':n.A.n<5?'курси':'курсів'}</span></div>${langsAgg(n.A)}</div>`;
+ if(n.kind==='sec')return `<div class="card grp sec k-course"><div class="top"><span class="chip">Напрямок</span></div><div class="name">${esc(cut(n.t,58))}</div><div class="big"><b>${n.A.n}</b><span>${n.A.n===1?'курс':n.A.n<5?'курси':'курсів'}</span></div>${langsAgg(n.A)}</div>`;
  const plan=n.pk==='umb'||n.pk==='new';
- return `<div class="card k-${n.pk}"><div class="top"><span class="chip">${CH[n.pk]}</span><span class="st${plan?'':' live'}">${plan?'створити':n.pk==='link'?'посилання':'є на сайті'}</span></div><div class="ttl" title="${esc(title(n))}">${esc(title(n))}</div>${langsPage(n)}</div>`;
+ return `<div class="card k-${n.pk}"><div class="top"><span class="chip">${CH[n.pk]}</span><span class="st${plan?'':' live'}">${plan?'створити':n.pk==='link'?'посилання':'є на сайті'}</span></div><div class="ttl" title="${esc(title(n))}">${esc(cut(title(n),56))}</div>${langsPage(n)}</div>`;
 }
 function size(d){const k=d.data.kind;return k==='root'?[330,160]:k==='group'?[300,168]:k==='sec'?[260,150]:[250,122]}
-function kpis(){const r=byId.root.A;const pages=NODES.filter(n=>n.kind==='page');const HUBS=new Set(NODES.filter(n=>n.pk==='umb').map(n=>n.id).concat(NODES.filter(n=>n.pk==='link').map(n=>n.parentId)));
- const items=[[r.n,'сторінок',''],[pages.filter(n=>n.pk==='course').length,'курсів',''],[pages.filter(n=>n.pk!=='umb'&&n.pk!=='new'&&n.pk!=='link').length,'вже є на сайті','ok'],[HUBS.size,'хабів створити','umb'],[pages.filter(n=>n.pk==='new'&&!HUBS.has(n.id)).length,'нових створити','new'],[r.uk.k+r.ru.k+r.en.k,'ключів','']];
+function kpis(){const r=byId.root.A;const pages=NODES.filter(n=>n.kind==='page');const REAL=NODES.filter(n=>n.L&&n.pk!=='link'&&n.pk!=='umb'&&n.pk!=='new'&&!HUBS0(n));const URLS={have:REAL.reduce((s,n)=>s+['uk','ru','en'].filter(l=>n.L[l].u).length,0)};URLS.miss=REAL.length*3-URLS.have;
+function HUBS0(n){return NODES.some(x=>x.pk==='link'&&x.parentId===n.id)}
+const HUBS=new Set(NODES.filter(n=>n.pk==='umb').map(n=>n.id).concat(NODES.filter(n=>n.pk==='link').map(n=>n.parentId)));
+ const items=[[r.n,'сторінок (кожна в 3 мовах)',''],[pages.filter(n=>n.pk==='course').length,'курсів',''],[pages.filter(n=>n.pk!=='umb'&&n.pk!=='new'&&n.pk!=='link').length,'вже є на сайті','ok'],[HUBS.size,'хабів створити','umb'],[pages.filter(n=>n.pk==='new'&&!HUBS.has(n.id)).length,'нових створити','new'],[URLS.have,'адрес на сайті (UK+RU+EN)','ok'],[URLS.miss,'мовних версій бракує',''],[r.uk.k+r.ru.k+r.en.k,'ключів','']];
  const el=document.getElementById('kpis');el.innerHTML=items.map(i=>`<div class="kpi ${i[2]}"><b data-v="${i[0]}">0</b><span>${i[1]}</span></div>`).join('');
  const t0=performance.now(),dur=1100;const bs=[...el.querySelectorAll('b')];
  const tick=t=>{const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);bs.forEach(b=>b.textContent=fmt(b.dataset.v*e));if(p<1)requestAnimationFrame(tick)};
